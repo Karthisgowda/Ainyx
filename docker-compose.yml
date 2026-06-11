@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ainyx
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d:ro
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      APP_ENV: production
+      PORT: 8080
+      DATABASE_URL: postgres://postgres:postgres@db:5432/ainyx?sslmode=disable
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
