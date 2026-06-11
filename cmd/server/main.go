@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Karthisgowda/Ainyx/config"
+	"github.com/Karthisgowda/Ainyx/db/migrations"
 	"github.com/Karthisgowda/Ainyx/db/sqlc"
 	"github.com/Karthisgowda/Ainyx/internal/handler"
 	"github.com/Karthisgowda/Ainyx/internal/logger"
@@ -89,11 +90,6 @@ func fiberErrorHandler(logger *zap.Logger) fiber.ErrorHandler {
 }
 
 func runMigrations(ctx context.Context, pool *pgxpool.Pool) error {
-	migration, err := os.ReadFile("db/migrations/001_create_users.sql")
-	if err != nil {
-		return err
-	}
-
-	_, err = pool.Exec(ctx, string(migration))
+	_, err := pool.Exec(ctx, migrations.CreateUsersSQL)
 	return err
 }
