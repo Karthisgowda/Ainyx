@@ -6,6 +6,21 @@ import (
 )
 
 func Register(app *fiber.App, userHandler *handler.UserHandler) {
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"status":  "ok",
+			"message": "Ainyx Users API is running",
+			"endpoints": []string{
+				"GET /health",
+				"POST /users",
+				"GET /users",
+				"GET /users/:id",
+				"PUT /users/:id",
+				"DELETE /users/:id",
+			},
+		})
+	})
+
 	app.Get("/health", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "ok"})
 	})
