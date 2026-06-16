@@ -20,6 +20,6 @@ SET name = $2, dob = $3
 WHERE id = $1
 RETURNING id, name, dob;
 
--- name: DeleteUser :exec
+-- name: DeleteUser :execrows
 DELETE FROM users
 WHERE id = $1;

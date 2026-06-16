@@ -8,6 +8,7 @@ import (
 	"github.com/Karthisgowda/Ainyx/db/sqlc"
 	"github.com/Karthisgowda/Ainyx/internal/models"
 	"github.com/Karthisgowda/Ainyx/internal/repository"
+	"github.com/jackc/pgx/v5"
 )
 
 const dateLayout = "2006-01-02"
@@ -87,7 +88,14 @@ func (s *userService) Update(ctx context.Context, id int32, request models.UserR
 }
 
 func (s *userService) Delete(ctx context.Context, id int32) error {
-	return s.repo.Delete(ctx, id)
+	rowsAffected, err := s.repo.Delete(ctx, id)
+	if err != nil {
+		return err
+	}
+	if rowsAffected == 0 {
+		return pgx.ErrNoRows
+	}
+	return nil
 }
 
 func parseDOB(value string, now time.Time) (time.Time, error) {

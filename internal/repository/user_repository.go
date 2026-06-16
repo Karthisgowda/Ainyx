@@ -11,7 +11,7 @@ type UserRepository interface {
 	GetByID(ctx context.Context, id int32) (sqlc.User, error)
 	List(ctx context.Context, params sqlc.ListUsersParams) ([]sqlc.User, error)
 	Update(ctx context.Context, params sqlc.UpdateUserParams) (sqlc.User, error)
-	Delete(ctx context.Context, id int32) error
+	Delete(ctx context.Context, id int32) (int64, error)
 }
 
 type userRepository struct {
@@ -38,6 +38,6 @@ func (r *userRepository) Update(ctx context.Context, params sqlc.UpdateUserParam
 	return r.queries.UpdateUser(ctx, params)
 }
 
-func (r *userRepository) Delete(ctx context.Context, id int32) error {
+func (r *userRepository) Delete(ctx context.Context, id int32) (int64, error) {
 	return r.queries.DeleteUser(ctx, id)
 }
