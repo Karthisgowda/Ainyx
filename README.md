@@ -2,6 +2,11 @@
 
 RESTful API in GoFiber for managing users with `name` and `dob`. The API stores date of birth and calculates age dynamically with Go's `time` package when users are fetched.
 
+## Submission Links
+
+- GitHub repository: https://github.com/Karthisgowda/Ainyx
+- Live deployment: https://ainyx-blond.vercel.app
+
 ## Tech Stack
 
 - GoFiber
@@ -19,6 +24,7 @@ RESTful API in GoFiber for managing users with `name` and `dob`. The API stores 
 | `PUT` | `/users/:id` | Update a user |
 | `DELETE` | `/users/:id` | Delete a user |
 | `GET` | `/users?limit=20&offset=0` | List users with calculated ages |
+| `GET` | `/` | API status and endpoint list |
 | `GET` | `/health` | Health check |
 
 ## Local Setup
